@@ -11,10 +11,9 @@
 
 import classNames from "classnames";
 import Container from "components/services/widget/container";
-import Block from "components/services/widget/block";
 import { useTranslation } from "next-i18next";
-import { useState, useEffect, useRef } from "react";
-import { MdSettings, MdAdd, MdDelete, MdEdit, MdClose, MdSave, MdUpload, MdDragHandle } from "react-icons/md";
+import { useEffect, useRef, useState } from "react";
+import { MdAdd, MdClose, MdDelete, MdDragHandle, MdSave, MdSettings, MdUpload } from "react-icons/md";
 
 // Storage key prefix for widget configs
 const STORAGE_KEY_PREFIX = "nlfbookmarks_";
@@ -43,7 +42,10 @@ function BookmarkIcon({ icon, name, href, size = "md" }) {
       const iconName = icon.replace("mdi-", "");
       return (
         <span
-          className={classNames(sizeClass, "iconify text-theme-600 dark:text-theme-400 opacity-70 group-hover:opacity-100")}
+          className={classNames(
+            sizeClass,
+            "iconify text-theme-600 dark:text-theme-400 opacity-70 group-hover:opacity-100",
+          )}
           data-icon={`mdi:${iconName}`}
         />
       );
@@ -60,7 +62,12 @@ function BookmarkIcon({ icon, name, href, size = "md" }) {
     }
 
     return (
-      <div className={classNames(sizeClass, "bg-theme-300/50 dark:bg-theme-700/50 rounded flex items-center justify-center opacity-70 group-hover:opacity-100")}>
+      <div
+        className={classNames(
+          sizeClass,
+          "bg-theme-300/50 dark:bg-theme-700/50 rounded flex items-center justify-center opacity-70 group-hover:opacity-100",
+        )}
+      >
         <span className="text-xs font-bold text-theme-600 dark:text-theme-400">
           {name?.charAt(0)?.toUpperCase() || "?"}
         </span>
@@ -115,56 +122,54 @@ function SettingsModal({ isOpen, onClose, config, onSave, widgetId }) {
   if (!isOpen) return null;
 
   const handleAddGroup = () => {
-    setEditConfig(prev => ({
+    setEditConfig((prev) => ({
       ...prev,
-      groups: [...(prev.groups || []), { name: "New Group", items: [] }]
+      groups: [...(prev.groups || []), { name: "New Group", items: [] }],
     }));
   };
 
   const handleUpdateGroup = (groupIndex, updates) => {
-    setEditConfig(prev => ({
+    setEditConfig((prev) => ({
       ...prev,
-      groups: prev.groups.map((g, i) => i === groupIndex ? { ...g, ...updates } : g)
+      groups: prev.groups.map((g, i) => (i === groupIndex ? { ...g, ...updates } : g)),
     }));
   };
 
   const handleDeleteGroup = (groupIndex) => {
-    setEditConfig(prev => ({
+    setEditConfig((prev) => ({
       ...prev,
-      groups: prev.groups.filter((_, i) => i !== groupIndex)
+      groups: prev.groups.filter((_, i) => i !== groupIndex),
     }));
   };
 
   const handleAddItem = (groupIndex) => {
-    setEditConfig(prev => ({
+    setEditConfig((prev) => ({
       ...prev,
       groups: prev.groups.map((g, i) =>
         i === groupIndex
           ? { ...g, items: [...(g.items || []), { name: "New Bookmark", href: "https://", icon: "" }] }
-          : g
-      )
+          : g,
+      ),
     }));
   };
 
   const handleUpdateItem = (groupIndex, itemIndex, updates) => {
-    setEditConfig(prev => ({
+    setEditConfig((prev) => ({
       ...prev,
       groups: prev.groups.map((g, gi) =>
         gi === groupIndex
-          ? { ...g, items: g.items.map((item, ii) => ii === itemIndex ? { ...item, ...updates } : item) }
-          : g
-      )
+          ? { ...g, items: g.items.map((item, ii) => (ii === itemIndex ? { ...item, ...updates } : item)) }
+          : g,
+      ),
     }));
   };
 
   const handleDeleteItem = (groupIndex, itemIndex) => {
-    setEditConfig(prev => ({
+    setEditConfig((prev) => ({
       ...prev,
       groups: prev.groups.map((g, gi) =>
-        gi === groupIndex
-          ? { ...g, items: g.items.filter((_, ii) => ii !== itemIndex) }
-          : g
-      )
+        gi === groupIndex ? { ...g, items: g.items.filter((_, ii) => ii !== itemIndex) } : g,
+      ),
     }));
   };
 
@@ -263,7 +268,10 @@ function SettingsModal({ isOpen, onClose, config, onSave, widgetId }) {
                     />
 
                     {/* Upload Icon */}
-                    <label className="p-1 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded cursor-pointer" title="Upload Icon">
+                    <label
+                      className="p-1 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded cursor-pointer"
+                      title="Upload Icon"
+                    >
                       <MdUpload className="w-4 h-4" />
                       <input
                         type="file"
@@ -367,7 +375,7 @@ export default function Component({ service }) {
         className={classNames(
           "absolute z-10 p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity",
           "hover:bg-theme-200/80 dark:hover:bg-theme-700/80 text-theme-500 hover:text-theme-700 dark:hover:text-theme-300",
-          service.description ? "-top-9 right-1" : "-top-7 right-1"
+          service.description ? "-top-9 right-1" : "-top-7 right-1",
         )}
         title="Settings"
       >

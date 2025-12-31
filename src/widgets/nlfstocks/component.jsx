@@ -39,11 +39,13 @@ function Sparkline({ data, open, width = 60, height = 20 }) {
   const range = max - min || 1;
 
   // Normalize data to SVG coordinates
-  const points = data.map((value, index) => {
-    const x = (index / (data.length - 1)) * width;
-    const y = height - ((value - min) / range) * height;
-    return `${x},${y}`;
-  }).join(" ");
+  const points = data
+    .map((value, index) => {
+      const x = (index / (data.length - 1)) * width;
+      const y = height - ((value - min) / range) * height;
+      return `${x},${y}`;
+    })
+    .join(" ");
 
   // Calculate opening price Y position
   const openY = height - ((open - min) / range) * height;
@@ -57,21 +59,10 @@ function Sparkline({ data, open, width = 60, height = 20 }) {
   return (
     <svg width={width} height={height} className="inline-block">
       {/* Opening price reference line */}
-      <line
-        x1="0"
-        y1={openY}
-        x2={width}
-        y2={openY}
-        stroke="#6b728080"
-        strokeWidth="1"
-        strokeDasharray="2,2"
-      />
+      <line x1="0" y1={openY} x2={width} y2={openY} stroke="#6b728080" strokeWidth="1" strokeDasharray="2,2" />
 
       {/* Fill area under the line */}
-      <polygon
-        points={`0,${height} ${points} ${width},${height}`}
-        fill={fillColor}
-      />
+      <polygon points={`0,${height} ${points} ${width},${height}`} fill={fillColor} />
 
       {/* Price line */}
       <polyline
@@ -84,20 +75,10 @@ function Sparkline({ data, open, width = 60, height = 20 }) {
       />
 
       {/* Opening price marker (small circle at start) */}
-      <circle
-        cx="0"
-        cy={openY}
-        r="2"
-        fill="#6b7280"
-      />
+      <circle cx="0" cy={openY} r="2" fill="#6b7280" />
 
       {/* Current price marker (small circle at end) */}
-      <circle
-        cx={width}
-        cy={height - ((currentPrice - min) / range) * height}
-        r="2"
-        fill={strokeColor}
-      />
+      <circle cx={width} cy={height - ((currentPrice - min) / range) * height} r="2" fill={strokeColor} />
     </svg>
   );
 }
@@ -122,7 +103,7 @@ function MarketStatus({ service }) {
         "inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium ring-1 ring-inset",
         isOpen
           ? "bg-green-500/10 text-green-400/90 ring-green-500/20"
-          : "bg-red-400/10 text-red-400/60 ring-red-400/10"
+          : "bg-red-400/10 text-red-400/60 ring-red-400/10",
       )}
     >
       {isOpen ? t("nlfstocks.open") || "Open" : t("nlfstocks.closed") || "Closed"}
@@ -140,11 +121,7 @@ function StockRow({ service, ticker, showSparkline }) {
   });
 
   // Fetch intraday data for sparkline (if enabled)
-  const { data: intradayData } = useWidgetAPI(
-    widget,
-    showSparkline ? "intraday" : "",
-    { symbol: ticker }
-  );
+  const { data: intradayData } = useWidgetAPI(widget, showSparkline ? "intraday" : "", { symbol: ticker });
 
   if (quoteError) {
     return (
@@ -171,31 +148,22 @@ function StockRow({ service, ticker, showSparkline }) {
   const isPositive = changePercent >= 0;
 
   // Extract sparkline data points
-  const sparklineData = intradayData?.results?.map((r) => r.c) ||
-    intradayData?.values?.map((v) => v.close) ||
-    [];
+  const sparklineData = intradayData?.results?.map((r) => r.c) || intradayData?.values?.map((v) => v.close) || [];
 
   return (
     <div
       className={classNames(
         "flex items-center justify-between p-1.5 rounded",
-        "hover:bg-theme-200/30 dark:hover:bg-theme-700/30 transition-colors"
+        "hover:bg-theme-200/30 dark:hover:bg-theme-700/30 transition-colors",
       )}
     >
       {/* Ticker Symbol */}
       <div className="flex items-center gap-2 min-w-0">
-        <span className="font-medium text-xs text-theme-800 dark:text-theme-200 w-12 truncate">
-          {ticker}
-        </span>
+        <span className="font-medium text-xs text-theme-800 dark:text-theme-200 w-12 truncate">{ticker}</span>
 
         {/* Sparkline */}
         {showSparkline && sparklineData.length > 0 && (
-          <Sparkline
-            data={sparklineData}
-            open={openPrice}
-            width={50}
-            height={16}
-          />
+          <Sparkline data={sparklineData} open={openPrice} width={50} height={16} />
         )}
       </div>
 
@@ -212,7 +180,7 @@ function StockRow({ service, ticker, showSparkline }) {
         <span
           className={classNames(
             "font-bold min-w-[3.5rem] text-right",
-            isPositive ? "text-emerald-500" : "text-red-500"
+            isPositive ? "text-emerald-500" : "text-red-500",
           )}
         >
           {isPositive ? "+" : ""}
@@ -226,11 +194,7 @@ function StockRow({ service, ticker, showSparkline }) {
 export default function Component({ service }) {
   const { t } = useTranslation();
   const { widget } = service;
-  const {
-    watchlist = [],
-    showSparkline = true,
-    showMarketStatus = true,
-  } = widget;
+  const { watchlist = [], showSparkline = true, showMarketStatus = true } = widget;
 
   // Validation
   if (!watchlist || watchlist.length === 0) {
@@ -261,12 +225,7 @@ export default function Component({ service }) {
       {/* Watchlist */}
       <div className="flex flex-col w-full divide-y divide-theme-200/50 dark:divide-theme-700/50">
         {watchlist.map((ticker) => (
-          <StockRow
-            key={ticker}
-            service={service}
-            ticker={ticker}
-            showSparkline={showSparkline}
-          />
+          <StockRow key={ticker} service={service} ticker={ticker} showSparkline={showSparkline} />
         ))}
       </div>
     </Container>

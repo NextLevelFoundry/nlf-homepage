@@ -30,11 +30,11 @@ const widget = {
         }
         const result = data.results[0];
         return {
-          c: result.c,      // close price (current)
-          o: result.o,      // open price
-          h: result.h,      // high
-          l: result.l,      // low
-          v: result.v,      // volume
+          c: result.c, // close price (current)
+          o: result.o, // open price
+          h: result.h, // high
+          l: result.l, // low
+          v: result.v, // volume
           dp: result.c && result.o ? ((result.c - result.o) / result.o) * 100 : 0,
         };
       },
