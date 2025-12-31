@@ -532,7 +532,8 @@
         "child_bridges_status": "{{ok}}/{{total}}",
         "up": "업",
         "pending": "대기 중",
-        "down": "다운"
+        "down": "다운",
+        "ok": "Ok"
     },
     "healthchecks": {
         "new": "신규",

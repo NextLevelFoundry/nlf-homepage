@@ -532,7 +532,8 @@
         "child_bridges_status": "{{ok}}/{{total}}",
         "up": "למעלה",
         "pending": "ממתין",
-        "down": "למטה"
+        "down": "למטה",
+        "ok": "Ok"
     },
     "healthchecks": {
         "new": "חדש",

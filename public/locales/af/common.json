@@ -532,7 +532,8 @@
         "child_bridges_status": "{{ok}}/{{total}}",
         "up": "Op",
         "pending": "Afwagtend",
-        "down": "Af"
+        "down": "Af",
+        "ok": "Ok"
     },
     "healthchecks": {
         "new": "Nuut",

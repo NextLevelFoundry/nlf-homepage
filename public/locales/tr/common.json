@@ -532,7 +532,8 @@
         "child_bridges_status": "{{ok}}/{{total}}",
         "up": "Çalışıyor",
         "pending": "Bekleyen",
-        "down": "Çalışmayan"
+        "down": "Çalışmayan",
+        "ok": "Ok"
     },
     "healthchecks": {
         "new": "Yeni",
