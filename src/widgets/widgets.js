@@ -79,7 +79,6 @@ import nextcloud from "./nextcloud/widget";
 import nextdns from "./nextdns/widget";
 import nlfbookmarks from "./nlfbookmarks/widget";
 import nlfstocks from "./nlfstocks/widget";
-import sysadminmatrix from "./sysadminmatrix/widget";
 import npm from "./npm/widget";
 import nzbget from "./nzbget/widget";
 import octoprint from "./octoprint/widget";
@@ -123,6 +122,7 @@ import stocks from "./stocks/widget";
 import strelaysrv from "./strelaysrv/widget";
 import suwayomi from "./suwayomi/widget";
 import swagdashboard from "./swagdashboard/widget";
+import sysadminmatrix from "./sysadminmatrix/widget";
 import tailscale from "./tailscale/widget";
 import tandoor from "./tandoor/widget";
 import tautulli from "./tautulli/widget";
@@ -230,7 +230,6 @@ const widgets = {
   netdata,
   nlfbookmarks,
   nlfstocks,
-  sysadminmatrix,
   nextcloud,
   nextdns,
   npm,
@@ -277,6 +276,7 @@ const widgets = {
   strelaysrv,
   swagdashboard,
   suwayomi,
+  sysadminmatrix,
   tailscale,
   tandoor,
   tautulli,
