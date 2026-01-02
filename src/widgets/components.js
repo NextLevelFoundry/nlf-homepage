@@ -86,6 +86,7 @@ const components = {
   netdata: dynamic(() => import("./netdata/component")),
   nlfbookmarks: dynamic(() => import("./nlfbookmarks/component")),
   nlfstocks: dynamic(() => import("./nlfstocks/component")),
+  sysadminmatrix: dynamic(() => import("./sysadminmatrix/component")),
   nextcloud: dynamic(() => import("./nextcloud/component")),
   nextdns: dynamic(() => import("./nextdns/component")),
   npm: dynamic(() => import("./npm/component")),

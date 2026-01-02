@@ -1,0 +1,12 @@
+/**
+ * Sys Admin Matrix Widget
+ * No API required - renders matrix grid from config
+ */
+
+const widget = {
+  // No API calls needed - this is a static/config-based widget
+  api: null,
+  proxyHandler: null,
+};
+
+export default widget;

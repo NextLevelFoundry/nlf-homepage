@@ -79,6 +79,7 @@ import nextcloud from "./nextcloud/widget";
 import nextdns from "./nextdns/widget";
 import nlfbookmarks from "./nlfbookmarks/widget";
 import nlfstocks from "./nlfstocks/widget";
+import sysadminmatrix from "./sysadminmatrix/widget";
 import npm from "./npm/widget";
 import nzbget from "./nzbget/widget";
 import octoprint from "./octoprint/widget";
@@ -229,6 +230,7 @@ const widgets = {
   netdata,
   nlfbookmarks,
   nlfstocks,
+  sysadminmatrix,
   nextcloud,
   nextdns,
   npm,

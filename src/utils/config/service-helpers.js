@@ -364,6 +364,11 @@ export function cleanServiceGroups(groups) {
           items,
           iconSize,
 
+          // sysadminmatrix
+          systems,
+          showLabels,
+          compact,
+
           // mjpeg
           fit,
           stream,
@@ -627,6 +632,11 @@ export function cleanServiceGroups(groups) {
           if (groups) widget.groups = groups;
           if (items) widget.items = items;
           if (iconSize) widget.iconSize = iconSize;
+        }
+        if (type === "sysadminmatrix") {
+          if (systems) widget.systems = systems;
+          if (showLabels) widget.showLabels = showLabels;
+          if (compact) widget.compact = compact;
         }
         if (type === "wgeasy") {
           if (threshold !== undefined) widget.threshold = parseInt(threshold, 10);
