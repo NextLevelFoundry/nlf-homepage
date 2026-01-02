@@ -359,6 +359,11 @@ export function cleanServiceGroups(groups) {
           // lubelogger
           vehicleID,
 
+          // nlfbookmarks
+          groups,
+          items,
+          iconSize,
+
           // mjpeg
           fit,
           stream,
@@ -617,6 +622,11 @@ export function cleanServiceGroups(groups) {
         if (type === "stocks") {
           if (watchlist) widget.watchlist = watchlist;
           if (showUSMarketStatus) widget.showUSMarketStatus = showUSMarketStatus;
+        }
+        if (type === "nlfbookmarks") {
+          if (groups) widget.groups = groups;
+          if (items) widget.items = items;
+          if (iconSize) widget.iconSize = iconSize;
         }
         if (type === "wgeasy") {
           if (threshold !== undefined) widget.threshold = parseInt(threshold, 10);
