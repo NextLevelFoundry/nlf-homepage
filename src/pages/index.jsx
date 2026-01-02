@@ -308,6 +308,42 @@ function Home({ initialSettings }) {
     const serviceGroups = services?.filter(tabGroupFilter).filter(undefinedGroupFilter);
     const bookmarkGroups = bookmarks.filter(tabGroupFilter).filter(undefinedGroupFilter);
 
+    // Helper to render a group (service or bookmark)
+    const renderGroup = (group) => {
+      if (!group) return null;
+      if (group.services) {
+        return (
+          <ServicesGroup
+            key={group.name}
+            group={group}
+            layout={settings.layout?.[group.name]}
+            maxGroupColumns={settings.fiveColumns ? 5 : settings.maxGroupColumns}
+            disableCollapse={settings.disableCollapse}
+            useEqualHeights={settings.useEqualHeights}
+            groupsInitiallyCollapsed={settings.groupsInitiallyCollapsed}
+          />
+        );
+      }
+      return (
+        <BookmarksGroup
+          key={group.name}
+          bookmarks={group}
+          layout={settings.layout?.[group.name]}
+          disableCollapse={settings.disableCollapse}
+          maxGroupColumns={settings.maxBookmarkGroupColumns ?? settings.maxGroupColumns}
+          groupsInitiallyCollapsed={settings.groupsInitiallyCollapsed}
+        />
+      );
+    };
+
+    // Check if split layout is enabled
+    const isSplitLayout = settings.splitLayout === true;
+
+    // Split groups by column assignment
+    const leftGroups = layoutGroups.filter((g) => g && settings.layout?.[g.name]?.column === "left");
+    const rightGroups = layoutGroups.filter((g) => g && settings.layout?.[g.name]?.column === "right");
+    const unassignedGroups = layoutGroups.filter((g) => g && !settings.layout?.[g.name]?.column);
+
     return (
       <>
         {tabs.length > 0 && (
@@ -328,30 +364,53 @@ function Home({ initialSettings }) {
             </ul>
           </div>
         )}
-        {layoutGroups.length > 0 && (
-          <div key="layoutGroups" id="layout-groups" className="flex flex-wrap m-4 sm:m-8 sm:mt-4 items-start mb-2">
-            {layoutGroups.map((group) =>
-              group.services ? (
-                <ServicesGroup
-                  key={group.name}
-                  group={group}
-                  layout={settings.layout?.[group.name]}
-                  maxGroupColumns={settings.fiveColumns ? 5 : settings.maxGroupColumns}
-                  disableCollapse={settings.disableCollapse}
-                  useEqualHeights={settings.useEqualHeights}
-                  groupsInitiallyCollapsed={settings.groupsInitiallyCollapsed}
-                />
-              ) : (
-                <BookmarksGroup
-                  key={group.name}
-                  bookmarks={group}
-                  layout={settings.layout?.[group.name]}
-                  disableCollapse={settings.disableCollapse}
-                  maxGroupColumns={settings.maxBookmarkGroupColumns ?? settings.maxGroupColumns}
-                  groupsInitiallyCollapsed={settings.groupsInitiallyCollapsed}
-                />
-              ),
-            )}
+        {isSplitLayout && (leftGroups.length > 0 || rightGroups.length > 0) ? (
+          <div
+            key="splitLayout"
+            id="split-layout"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-4 m-4 sm:m-8 sm:mt-4 items-start mb-2"
+          >
+            {/* Left Column - Bookmarks/Matrix */}
+            <div className="flex flex-col gap-2">{leftGroups.map(renderGroup)}</div>
+            {/* Right Column - Widgets */}
+            <div className="flex flex-col gap-2">{rightGroups.map(renderGroup)}</div>
+          </div>
+        ) : (
+          layoutGroups.length > 0 && (
+            <div key="layoutGroups" id="layout-groups" className="flex flex-wrap m-4 sm:m-8 sm:mt-4 items-start mb-2">
+              {layoutGroups.map((group) =>
+                group.services ? (
+                  <ServicesGroup
+                    key={group.name}
+                    group={group}
+                    layout={settings.layout?.[group.name]}
+                    maxGroupColumns={settings.fiveColumns ? 5 : settings.maxGroupColumns}
+                    disableCollapse={settings.disableCollapse}
+                    useEqualHeights={settings.useEqualHeights}
+                    groupsInitiallyCollapsed={settings.groupsInitiallyCollapsed}
+                  />
+                ) : (
+                  <BookmarksGroup
+                    key={group.name}
+                    bookmarks={group}
+                    layout={settings.layout?.[group.name]}
+                    disableCollapse={settings.disableCollapse}
+                    maxGroupColumns={settings.maxBookmarkGroupColumns ?? settings.maxGroupColumns}
+                    groupsInitiallyCollapsed={settings.groupsInitiallyCollapsed}
+                  />
+                ),
+              )}
+            </div>
+          )
+        )}
+        {/* Render unassigned groups in normal flow when split layout is on */}
+        {isSplitLayout && unassignedGroups.length > 0 && (
+          <div
+            key="unassignedGroups"
+            id="unassigned-groups"
+            className="flex flex-wrap m-4 sm:m-8 sm:mt-4 items-start mb-2"
+          >
+            {unassignedGroups.map(renderGroup)}
           </div>
         )}
         {serviceGroups?.length > 0 && (
