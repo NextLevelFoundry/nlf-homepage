@@ -16,6 +16,11 @@ const TOOL_PRIORITY = [
   { key: "proxmox", label: "Proxmox", icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/proxmox.png" },
   { key: "synology", label: "DSM", icon: "/icons/service_icons/DSM7_64.png" },
   { key: "unifi", label: "UniFi", icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/unifi.png" },
+  {
+    key: "unifi_protect",
+    label: "Protect",
+    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/unifi-protect.png",
+  },
   { key: "cockpit", label: "Cockpit", icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/cockpit.png" },
   {
     key: "portainer",
@@ -80,13 +85,10 @@ function SystemColumn({ system }) {
   if (systemTools.length === 0) return null;
 
   return (
-    <div className="flex flex-col items-center min-w-[70px]">
-      {/* System header */}
-      <div className="flex flex-col items-center gap-0.5 mb-1">
+    <div className="flex flex-col items-center min-w-[60px]">
+      {/* System icon only - no name */}
+      <div className="mb-1" title={system.name}>
         <SystemIcon icon={system.icon} name={system.name} size="md" />
-        <span className="text-[9px] text-theme-500 dark:text-theme-400 truncate max-w-[65px] text-center">
-          {system.name}
-        </span>
       </div>
 
       {/* Tool links sorted by priority */}
