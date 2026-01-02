@@ -371,9 +371,21 @@ function Home({ initialSettings }) {
             className="grid grid-cols-1 lg:grid-cols-2 gap-4 m-4 sm:m-8 sm:mt-4 items-start mb-2"
           >
             {/* Left Column - Bookmarks/Matrix */}
-            <div className="flex flex-col gap-2">{leftGroups.map(renderGroup)}</div>
+            <div className="flex flex-col gap-2">
+              {leftGroups.map((group) => (
+                <div key={group.name} className="w-full [&>div]:basis-full">
+                  {renderGroup(group)}
+                </div>
+              ))}
+            </div>
             {/* Right Column - Widgets */}
-            <div className="flex flex-col gap-2">{rightGroups.map(renderGroup)}</div>
+            <div className="flex flex-col gap-2">
+              {rightGroups.map((group) => (
+                <div key={group.name} className="w-full [&>div]:basis-full">
+                  {renderGroup(group)}
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           layoutGroups.length > 0 && (
