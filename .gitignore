@@ -52,3 +52,12 @@ site*/
 
 # venv
 .venv/
+# === Data gateway directories (import/export staging) ===
+# These carry files moving in/out via gateways and can hold sensitive
+# content (screenshots, statements, exports) - never commit them.
+# Root-anchored on purpose: a nested src/.../export/ is source code
+# (e.g. an API route), not a staging area, and must stay tracked.
+/import/
+/imports/
+/export/
+/exports/
